@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-header-main',
@@ -6,12 +6,4 @@ import {Component, EventEmitter, Output} from '@angular/core';
   styleUrls: ['./header-main.component.scss']
 })
 export class HeaderMainComponent{
-
-  @Output() private toggleMenu: EventEmitter<boolean> = new EventEmitter<boolean>();
-  isMenuOpen = false;
-
-  onMenuClick(): void {
-    this.isMenuOpen = !this.isMenuOpen;
-    this.toggleMenu.emit(this.isMenuOpen)
-  }
 }
