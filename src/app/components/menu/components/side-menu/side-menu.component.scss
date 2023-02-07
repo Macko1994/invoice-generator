@@ -12,6 +12,12 @@ mat-sidenav {
     width: 100%;
     font-size: 20px;
     padding: 10px;
+
+    &.active {
+      background: white;
+      opacity: 0.4;
+      color: black;
+    }
   }
 }
 

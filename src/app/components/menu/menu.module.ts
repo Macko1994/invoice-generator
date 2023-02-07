@@ -15,7 +15,7 @@ import {AppRoutingModule} from "../../app-routing.module";
     CommonModule,
     MaterialModule,
     HeaderModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   exports: [
     SideMenuComponent
