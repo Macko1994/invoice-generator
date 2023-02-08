@@ -1,19 +1,21 @@
-<app-header-main (toggleMenu)="isMenuOpen = !isMenuOpen"></app-header-main>
+<app-header-main></app-header-main>
 
-<mat-sidenav-container *ngIf="isMenuOpen">
+<mat-sidenav-container>
   <mat-sidenav mode="side" opened>
     <a mat-button
        class="menu-button"
-       routerLink="/aa"
-    >New Invoice</a>
+       routerLink="/new-invoice"
+       routerLinkActive="active"
+    (click)="clearInvoice()">New Invoice</a>
     <a mat-button
        class="menu-button"
-    >
-      Preview Invoice</a>
+       routerLink="/preview-invoice"
+       routerLinkActive="active"
+    (click)="clearInvoice()">Preview Invoice</a>
   </mat-sidenav>
   <mat-sidenav-content>
     <div class="content">
-      Main content here!
+      <ng-content></ng-content>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

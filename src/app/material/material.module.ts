@@ -3,9 +3,10 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatButtonModule} from "@angular/material/button";
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
-import {MatDividerModule} from "@angular/material/divider";
-
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   exports: [
@@ -14,8 +15,10 @@ import {MatDividerModule} from "@angular/material/divider";
     MatToolbarModule,
     MatSidenavModule,
     MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatIconModule,
-    MatDividerModule,
+    MatSnackBarModule
   ]
 })
 export class MaterialModule { }

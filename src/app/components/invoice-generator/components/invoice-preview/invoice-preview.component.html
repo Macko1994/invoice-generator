@@ -1,0 +1,31 @@
+<section class="main-section">
+  <h1>{{ companyData?.name }}</h1>
+  <h2>{{ companyData?.address }}</h2>
+  <p>Phones: {{ companyData?.phones?.join(', ') }}</p>
+  <hr/>
+  <div class="no-items" *ngIf="!invoices.length; else invoicesData">
+    <p class="value">No items</p>
+  </div>
+
+  <ng-template #invoicesData>
+    <div class="table">
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Count</th>
+          <th>Price</th>
+        </tr>
+        <tr *ngFor="let invoice of invoices; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ invoice?.name || ''}}</td>
+          <td>{{ invoice?.count || 0}}</td>
+          <td>{{ invoice?.price || 0}}</td>
+        </tr>
+        <tr>
+          <td colspan="4" class="summary-row">Sum: {{ sum }}</td>
+        </tr>
+      </table>
+    </div>
+  </ng-template>
+</section>

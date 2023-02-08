@@ -12,16 +12,15 @@ mat-sidenav {
     width: 100%;
     font-size: 20px;
     padding: 10px;
+
+    &.active {
+      background: white;
+      opacity: 0.4;
+      color: black;
+    }
   }
 }
 
 mat-sidenav-container {
   height: calc(100vh - 65px);
-}
-
-.content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
 }

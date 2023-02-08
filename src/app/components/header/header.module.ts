@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {HeaderMainComponent} from "./components/header-main/header-main.component";
 import {MaterialModule} from "../../material/material.module";
-
+import {AppRoutingModule} from "../../app-routing.module";
 
 
 @NgModule({
@@ -11,7 +11,8 @@ import {MaterialModule} from "../../material/material.module";
   ],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    AppRoutingModule
   ],
   exports: [
     HeaderMainComponent

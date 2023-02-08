@@ -1,0 +1,22 @@
+.invoice-form {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+
+  .form-group {
+    display: flex;
+    align-items: center;
+
+    .form-field {
+      padding: 2px;
+    }
+
+    button {
+      margin-top: -20px;
+    }
+  }
+
+  .submit-button {
+    padding: 20px;
+  }
+}

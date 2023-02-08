@@ -1,0 +1,59 @@
+<form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()" class="invoice-form">
+  <div formArrayName="invoices">
+    <div *ngFor="let invoiceControl of controls; let i = index">
+      <div [formGroupName]="i" class="form-group">
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Name</mat-label>
+          <input matInput type="text" formControlName="name"/>
+          <mat-error *ngIf="invoiceControl.get('name')?.touched && invoiceControl.get('name')?.hasError('minlength')">
+            Min 3
+          </mat-error>
+          <mat-error *ngIf="invoiceControl.get('name')?.touched && invoiceControl.get('name')?.hasError('maxlength')">
+            Max 30
+          </mat-error>
+          <mat-error
+            *ngIf="invoiceControl.get('name')?.touched && invoiceControl.get('name')?.hasError('required')">
+            Please enter name
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Count</mat-label>
+          <input matInput type="number" formControlName="count"/>
+          <mat-error
+            *ngIf="invoiceControl.get('count')?.touched && invoiceControl.get('count')?.hasError('min')">
+            Min 1
+          </mat-error>
+          <mat-error *ngIf="invoiceControl.get('count')?.touched && invoiceControl.get('count')?.hasError('max')">
+            Max 100
+          </mat-error>
+          <mat-error
+            *ngIf="invoiceControl.get('count')?.touched && invoiceControl.get('count')?.hasError('required')">
+            Please enter a count
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Price</mat-label>
+          <input matInput type="number" formControlName="price"/>
+          <mat-error
+            *ngIf="invoiceControl.get('price')?.touched && invoiceControl.get('price')?.hasError('min')">
+            Min 1
+          </mat-error>
+          <mat-error *ngIf="invoiceControl.get('price')?.touched && invoiceControl.get('price')?.hasError('max')">
+            Max 1000000
+          </mat-error>
+          <mat-error
+            *ngIf="invoiceControl.get('price')?.touched && invoiceControl.get('price')?.hasError('required')">
+            Please enter a price
+          </mat-error>
+        </mat-form-field>
+        <button mat-button color="primary" (click)="onItemDelete(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+    <button mat-button type="button" (click)="onAddInvoice()">+ Add new item</button>
+  </div>
+  <div class="submit-button">
+    <button mat-raised-button color="primary" type="submit">Submit</button>
+  </div>
+</form>
