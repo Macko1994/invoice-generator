@@ -8,8 +8,24 @@
   </div>
 
   <ng-template #invoicesData>
-    <div>
-      Faktury...
+    <div class="table">
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Count</th>
+          <th>Price</th>
+        </tr>
+        <tr *ngFor="let invoice of invoices; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ invoice?.name || ''}}</td>
+          <td>{{ invoice?.count || 0}}</td>
+          <td>{{ invoice?.price || 0}}</td>
+        </tr>
+        <tr>
+          <td colspan="4" class="summary-row">Sum: {{ sum }}</td>
+        </tr>
+      </table>
     </div>
   </ng-template>
 </section>

@@ -13,6 +13,7 @@ export class InvoicePreviewComponent implements OnInit, OnDestroy {
 
   companyData!: Company;
   invoices: Invoice[] = [];
+  sum = 0;
   private destroy$: Subject<void> = new Subject<void>();
 
   constructor(private invoiceService: InvoiceService) {
@@ -25,17 +26,22 @@ export class InvoicePreviewComponent implements OnInit, OnDestroy {
 
   private getCompanyData(): void {
     this.invoiceService.getCompanyData()
-      .pipe(takeUntil(this.destroy$))
       .subscribe((companyData: Company) => {
         this.companyData = companyData;
-      })
+      });
   }
 
   private getInvoiceData(): void {
     this.invoiceService.getInvoiceData()
       .pipe(takeUntil(this.destroy$))
       .subscribe((invoiceData: Invoice[]) => {
-        this.invoices = invoiceData;
+        if (invoiceData.length) {
+          this.invoices = invoiceData;
+
+          invoiceData.forEach((data: Invoice) => {
+            this.sum += data.count * data.price;
+          });
+        }
       });
   }
 

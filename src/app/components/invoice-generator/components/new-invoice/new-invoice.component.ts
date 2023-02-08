@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {Router} from "@angular/router";
+import {InvoiceService} from "../../service/invoice.service";
 
 @Component({
   selector: 'app-new-invoice',
@@ -7,15 +11,80 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewInvoiceComponent implements OnInit {
 
-  constructor() { }
+  invoiceForm!: FormGroup;
 
-  ngOnInit(): void {
+  constructor(private snackBar: MatSnackBar,
+              private router: Router,
+              private invoiceService: InvoiceService) {
   }
 
+  ngOnInit(): void {
+    this.buildForm();
+  }
 
-  // TODO:
-  //  1. Przy każdym naciśnięciu przycisku submit powinny się ustawiać wartości w serwisie (setInvoiceData) i przekierowywać na drugą stronę
-  //  2. Przy routingu (przełączaniu między linkami) wartości w serwisie powinny się zerować (setInvoiceData(null))
-  //  3. Stworzenie formularza według wytycznych
+  private buildForm(): void {
+    this.invoiceForm = new FormGroup({
+      invoices: new FormArray([this.generateFormGroup()]),
+    });
+  }
 
+  private generateFormGroup(): FormGroup {
+    return new FormGroup({
+      name: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(30)
+      ]),
+      count: new FormControl(null, [
+        Validators.required,
+        Validators.min(1),
+        Validators.max(100)
+      ]),
+      price: new FormControl(null, [
+        Validators.required,
+        Validators.min(1),
+        Validators.max(1000000)
+      ])
+    })
+  }
+
+  get controls() {
+    return (this.invoiceForm.get('invoices') as FormArray).controls;
+  }
+
+  onAddInvoice(): void {
+    (this.invoiceForm.get('invoices') as FormArray).push(this.generateFormGroup());
+  }
+
+  onItemDelete(index: number): void {
+    (this.invoiceForm.get('invoices') as FormArray).removeAt(index);
+  }
+
+  onSubmit(): void {
+    if (!(this.invoiceForm.get('invoices') as FormArray).length) {
+      this.openSnackBar('Please add items', 'OK');
+    }
+
+    (this.invoiceForm.get('invoices') as FormArray).controls
+      .forEach((control: AbstractControl) => {
+        if (control.get('name')?.invalid) {
+          control.get('name')?.markAsTouched();
+        }
+        if (control.get('count')?.invalid) {
+          control.get('count')?.markAsTouched();
+        }
+        if (control.get('price')?.invalid) {
+          control.get('price')?.markAsTouched();
+        }
+
+        if (control.get('name')?.valid || control.get('count')?.valid || control.get('price')?.valid) {
+          this.invoiceService.setInvoiceData((this.invoiceForm.get('invoices') as FormArray).value);
+          this.router.navigate(['/preview-invoice']);
+        }
+      });
+  }
+
+  private openSnackBar(message: string, action: string): void {
+    this.snackBar.open(message, action);
+  }
 }
