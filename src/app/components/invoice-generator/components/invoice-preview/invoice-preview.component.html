@@ -1,1 +1,15 @@
-Preview
+<section class="main-section">
+  <h1>{{ companyData?.name }}</h1>
+  <h2>{{ companyData?.address }}</h2>
+  <p>Phones: {{ companyData?.phones?.join(', ') }}</p>
+  <hr/>
+  <div class="no-items" *ngIf="!invoices.length; else invoicesData">
+    <p class="value">No items</p>
+  </div>
+
+  <ng-template #invoicesData>
+    <div>
+      Faktury...
+    </div>
+  </ng-template>
+</section>
