@@ -1,7 +1,9 @@
+@import "src/app/shared/variables";
+
 mat-sidenav {
-  border-top: 1px solid lightgray;
-  background: #3f51b5;
-  color: white;
+  border-top: 1px solid $lightgrey;
+  background: $blue;
+  color: $white;
   padding: 20px;
   text-align: center;
 
@@ -14,9 +16,9 @@ mat-sidenav {
     padding: 10px;
 
     &.active {
-      background: white;
+      background: $white;
       opacity: 0.4;
-      color: black;
+      color: $black;
     }
   }
 }

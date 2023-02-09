@@ -1,10 +1,9 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {SideMenuComponent} from "./components/side-menu/side-menu.component";
-import {MaterialModule} from "../../material/material.module";
 import {HeaderModule} from "../header/header.module";
 import {AppRoutingModule} from "../../app-routing.module";
-
+import {SharedModule} from "../../shared/shared.module";
 
 
 @NgModule({
@@ -13,7 +12,7 @@ import {AppRoutingModule} from "../../app-routing.module";
   ],
   imports: [
     CommonModule,
-    MaterialModule,
+    SharedModule,
     HeaderModule,
     AppRoutingModule,
   ],

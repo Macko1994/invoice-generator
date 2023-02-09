@@ -1,3 +1,5 @@
+@import "src/app/shared/variables";
+
 .main-section {
   display: flex;
   flex-direction: column;
@@ -25,7 +27,7 @@
     }
 
     td, th {
-      border: 1px solid #dddddd;
+      border: 1px solid $darker-white;
       text-align: center;
       padding: 8px;
     }
