@@ -61,27 +61,27 @@ export class NewInvoiceComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (!(this.invoiceForm.get('invoices') as FormArray).length) {
+    if (!(this.controls).length) {
       this.openSnackBar('Please add items', 'OK');
+      return;
     }
 
-    (this.invoiceForm.get('invoices') as FormArray).controls
-      .forEach((control: AbstractControl) => {
-        if (control.get('name')?.invalid) {
-          control.get('name')?.markAsTouched();
-        }
-        if (control.get('count')?.invalid) {
-          control.get('count')?.markAsTouched();
-        }
-        if (control.get('price')?.invalid) {
-          control.get('price')?.markAsTouched();
-        }
+    this.controls.forEach((control: AbstractControl) => {
+      if (control.get('name')?.invalid) {
+        control.get('name')?.markAsTouched();
+      }
+      if (control.get('count')?.invalid) {
+        control.get('count')?.markAsTouched();
+      }
+      if (control.get('price')?.invalid) {
+        control.get('price')?.markAsTouched();
+      }
+    });
 
-        if (control.get('name')?.valid || control.get('count')?.valid || control.get('price')?.valid) {
-          this.invoiceService.setInvoiceData((this.invoiceForm.get('invoices') as FormArray).value);
-          this.router.navigate(['/preview-invoice']);
-        }
-      });
+    if (this.invoiceForm.valid) {
+      this.invoiceService.setInvoiceData((this.invoiceForm.get('invoices') as FormArray).value);
+      this.router.navigate(['/preview-invoice']);
+    }
   }
 
   private openSnackBar(message: string, action: string): void {
