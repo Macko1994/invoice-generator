@@ -3,6 +3,7 @@ import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from "@a
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
 import {InvoiceService} from "../../service/invoice.service";
+import {CustomValidator} from "../../../../utils/custom-validator";
 
 @Component({
   selector: 'app-new-invoice',
@@ -31,21 +32,21 @@ export class NewInvoiceComponent implements OnInit {
   private generateFormGroup(): FormGroup {
     return new FormGroup({
       name: new FormControl(null, [
-        Validators.required,
         Validators.minLength(3),
         Validators.maxLength(30)
       ]),
       count: new FormControl(null, [
-        Validators.required,
         Validators.min(1),
         Validators.max(100)
       ]),
       price: new FormControl(null, [
-        Validators.required,
         Validators.min(1),
         Validators.max(1000000)
       ])
-    })
+    },
+      {
+        validators: CustomValidator.atLeastOne(Validators.required, ['name', 'count', 'price'])
+      });
   }
 
   get controls() {
@@ -61,7 +62,7 @@ export class NewInvoiceComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (!(this.controls).length) {
+    if (!this.controls.length) {
       this.openSnackBar('Please add items', 'OK');
       return;
     }
